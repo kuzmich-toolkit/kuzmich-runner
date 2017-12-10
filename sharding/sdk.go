@@ -31,7 +31,7 @@ func (a *SdkManager) shard(devices []model.Device) []Shard {
 		result = append(
 			result,
 			Shard{
-				Title:   fmt.Sprintf("Sdk level based shard for: %d api leve", sdk),
+				Title:   fmt.Sprintf("Sdk level based shard for: %d api level", sdk),
 				Devices: sdkDevices,
 			},
 		)
