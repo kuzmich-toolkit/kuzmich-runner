@@ -78,7 +78,7 @@ func TestCreatingShardsWithSdkManagerAndSameSdk(t *testing.T) {
 
 	expected := []Shard{
 		{
-			Title: "Sdk level based shard for: 22 api level",
+			Title:   "Sdk level based shard for: 22 api level",
 			Devices: devices,
 		},
 	}

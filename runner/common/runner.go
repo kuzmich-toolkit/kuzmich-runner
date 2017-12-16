@@ -13,15 +13,15 @@ type Runner struct {
 	client adb.Client
 }
 
-func NewCommonRunner(client adb.Client, shardNumber, countOfShards int) runner.Runner {
-	return &Runner{
-		shardNumber:   shardNumber,
-		countOfShards: countOfShards,
-
-		client: client,
-	}
-}
-
 func (r *Runner) run(shard sharding.Shard) runner.Result {
-
+	return runner.Result{}
 }
+
+//func NewCommonRunner(client adb.Client, shardNumber, countOfShards int) runner.Runner {
+//	return &Runner{
+//		shardNumber:   shardNumber,
+//		countOfShards: countOfShards,
+//
+//		client: client,
+//	}
+//}

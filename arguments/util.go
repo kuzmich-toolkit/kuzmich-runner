@@ -4,13 +4,29 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 	"strconv"
+	"strings"
 )
 
-func parseBooleanFlag(command *cobra.Command, name string) bool {
-	value, err := strconv.ParseBool(command.Flag(name).Value.String())
-	if err != nil {
-		log.Fatalf("Error during parsing boolean flag with name: %s", name)
+func parseBooleanFlag(command *cobra.Command, name string) (bool, error) {
+	return strconv.ParseBool(command.Flag(name).Value.String())
+}
+
+func parseMapFlag(command *cobra.Command, name string) map[string]string {
+	value := command.Flag(name).Value.String()
+	arrayValue := strings.Split(value, " ")
+
+	if len(arrayValue)%2 != 0 {
+		log.Fatalf(
+			"Error during parsing map falg with name: %s. You should pass even number of words",
+			name,
+		)
 	}
 
-	return value
+	result := map[string]string{}
+
+	for i := 0; i < len(arrayValue); i += 2 {
+		result[arrayValue[i]] = arrayValue[i+1]
+	}
+
+	return result
 }
