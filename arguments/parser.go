@@ -17,9 +17,16 @@ func parseSharedFlags(command *cobra.Command, arguments *CommonRunnerArguments) 
 
 	verbose, verboseErr := parseBooleanFlag(command, "verbose")
 	if verboseErr != nil {
-		multierror.Append(err, verboseErr)
+		err = multierror.Append(err, verboseErr)
 	} else {
 		arguments.Verbose = verbose
+	}
+
+	instrumentationArguments, instrumentationArgumentsErr := parseMapFlag(command, "instrumentation-arguments")
+	if instrumentationArgumentsErr != nil {
+		err = multierror.Append(err, instrumentationArgumentsErr)
+	} else {
+		arguments.InstrumentationArguments = instrumentationArguments
 	}
 
 	return err
@@ -30,7 +37,12 @@ func ParseCommonRunFlags(command *cobra.Command) *CommonRunnerArguments {
 
 	err := parseSharedFlags(command, result)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(
+			multierror.Append(
+				command.Usage(),
+				err,
+			),
+		)
 	}
 
 	return result

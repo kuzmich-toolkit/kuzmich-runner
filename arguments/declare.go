@@ -1,6 +1,8 @@
 package arguments
 
-import "github.com/spf13/cobra"
+import (
+	"github.com/spf13/cobra"
+)
 
 func declareSharedFlags(command *cobra.Command) {
 	command.Flags().String("apk", "", "Android application path")
@@ -18,6 +20,12 @@ func declareSharedFlags(command *cobra.Command) {
 	command.Flags().String("output", "", "Result artifacts folder path")
 	command.MarkFlagRequired("output")
 
+	command.Flags().String(
+		"instrumentation-arguments",
+		"",
+		"Additional arguments for instrumentation. "+
+			"Pass it like this: --instrumentation-arguments \"argument1 value1 argument2 value2\"",
+	)
 	command.Flags().Bool("verbose", false, "Use for additional output")
 }
 
